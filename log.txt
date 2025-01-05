@@ -1,0 +1,11 @@
+initialized display in constructor
+added settings module for display settings
+added bmp file for tank in images folder
+created tank class and made all necessary methods and attributes for movements and displaying it
+added key up and down events
+added limit of movement of tank
+
+next tasks:
+refactor the keyup keydown conditions
+refactor tank object in tank_duels.py to tank1 
+make tank2 at right side with same features as tank1
