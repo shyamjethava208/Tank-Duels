@@ -9,7 +9,7 @@ class Tank_duel:
         self.settings = Settings()
         self.display = pygame.display.set_mode((self.settings.screen_height, self.settings.screen_width))
         pygame.display.set_caption("tank_duels")
-        self.tank = Tank(self)
+        self.tank1 = Tank(self)
         self.clock = pygame.time.Clock()
 
 
@@ -17,14 +17,14 @@ class Tank_duel:
         """main loop of the game"""
         while True:
             self._check_events()
-            self.tank.update()
+            self.tank1.update()
             self._update_screen()
             self.clock.tick(60)
     
 
     def _update_screen(self):
         self.display.fill(self.settings.bg_color)
-        self.tank.blitme()
+        self.tank1.blitme()
         # holds the last drawn image on display
         pygame.display.flip()
 
@@ -40,15 +40,15 @@ class Tank_duel:
 
     def _check_keydown_event(self, event):
         if event.key == pygame.K_UP:
-            self.tank.moving_up = True
+            self.tank1.moving_up = True
         if event.key == pygame.K_DOWN:
-            self.tank.moving_down = True  
+            self.tank1.moving_down = True  
     
     def _check_keyup_event(self, event):
         if event.key == pygame.K_UP:
-            self.tank.moving_up = False
+            self.tank1.moving_up = False
         if event.key == pygame.K_DOWN:
-            self.tank.moving_down = False
+            self.tank1.moving_down = False
 
 if __name__ == "__main__":
     """make instance of game and run it"""
