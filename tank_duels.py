@@ -34,18 +34,21 @@ class Tank_duel:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        self.tank.moving_up = True
+                    self._check_keydown_event(event)
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_UP:
-                        self.tank.moving_up = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_DOWN:
-                        self.tank.moving_down = True
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_DOWN:
-                        self.tank.moving_down = False
-                
+                    self._check_keyup_event(event)
+
+    def _check_keydown_event(self, event):
+        if event.key == pygame.K_UP:
+            self.tank.moving_up = True
+        if event.key == pygame.K_DOWN:
+            self.tank.moving_down = True  
+    
+    def _check_keyup_event(self, event):
+        if event.key == pygame.K_UP:
+            self.tank.moving_up = False
+        if event.key == pygame.K_DOWN:
+            self.tank.moving_down = False
 
 if __name__ == "__main__":
     """make instance of game and run it"""
