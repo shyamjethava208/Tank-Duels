@@ -5,7 +5,7 @@ class Tank:
         self.screen = game.display
         self.settings = Settings()
         self.screen_rect = game.display.get_rect()
-        self.original_image = pygame.image.load('Tank-Duel/images/tankbody.bmp')
+        self.original_image = self.load_tank_image(player)
         self.image = pygame.transform.scale(self.original_image, (70,70))
         self.rect = self.image.get_rect()
         self.set_location(player)
@@ -29,3 +29,8 @@ class Tank:
         else:
             self.rect.midright = self.screen_rect.midright
             self.rect.x = self.settings.screen_width - 100
+    def load_tank_image(self, player):
+        if player == "one":
+            return pygame.image.load('Tank-Duel/images/tankbody.bmp')
+        else:
+            return pygame.image.load('Tank-Duel/images/tankbody2.bmp')
