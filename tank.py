@@ -5,11 +5,12 @@ class Tank:
         self.screen = game.display
         self.settings = game.settings
         self.screen_rect = game.display.get_rect()
-        self.original_image = self.load_tank_image(player)
+        self.player = player
+        self.original_image = self.load_tank_image()
         self.image = pygame.transform.scale(self.original_image, (70,70))
         self.rect = self.image.get_rect()
-        self.set_location(player)
-        self.head_original_image = self.load_tank_head_image(player)
+        self.set_location()
+        self.head_original_image = self.load_tank_head_image()
         self.head_image = pygame.transform.scale(self.head_original_image, (70,70))
         self.head_rect = self.head_image.get_rect()
         self.head_rect.center = self.rect.center    
@@ -31,23 +32,23 @@ class Tank:
                 self.rect.y += self.settings.tank_speed
         self.head_rect.center = self.rect.center
 
-    def set_location(self, player):
+    def set_location(self):
         # sets the tank position initially 
-        if player == "one":
+        if self.player == "one":
             self.rect.midleft = self.screen_rect.midleft
             self.rect.x += self.settings.tank_padding
         else:
             self.rect.midright = self.screen_rect.midright
             self.rect.x -= self.settings.tank_padding
 
-    def load_tank_head_image(self, player):
-        if player == "one":
+    def load_tank_head_image(self):
+        if self.player == "one":
             return pygame.image.load('Tank-Duel/images/tankhead.bmp')
         else:
             return pygame.image.load('Tank-Duel/images/tankhead2.bmp')
     
-    def load_tank_image(self, player):
-        if player == "one":
+    def load_tank_image(self):
+        if self.player == "one":
             return pygame.image.load('Tank-Duel/images/tankbody.bmp')
         else:
             return pygame.image.load('Tank-Duel/images/tankbody2.bmp')

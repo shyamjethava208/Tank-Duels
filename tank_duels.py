@@ -12,7 +12,8 @@ class Tank_duel:
         pygame.display.set_caption("tank_duels")
         self.tank1 = Tank(self, "one")
         self.tank2 = Tank(self, "two")
-        self.bullets = pygame.sprite.Group()
+        self.bullets1 = pygame.sprite.Group()
+        self.bullets2 = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
 
 
@@ -31,12 +32,20 @@ class Tank_duel:
         self.display.fill(self.settings.bg_color)
         self.tank1.blitme()
         self.tank2.blitme()
-        for bullet in self.bullets.sprites():
-            bullet.update()
-            bullet.blitme()
+        self._update_bullets()
         # holds the last drawn image on display
         pygame.display.flip()
 
+
+    def _update_bullets(self):
+        for bullet in self.bullets1.sprites():
+            bullet.update()
+            bullet.blitme()
+        for bullet in self.bullets2.sprites():
+            bullet.update()
+            bullet.blitme()
+
+            
     def _check_events(self):
         # watch for keyboard and mouse events.
         for event in pygame.event.get():
@@ -61,10 +70,10 @@ class Tank_duel:
             self.tank2.moving_down = True 
         if event.key == pygame.K_SPACE:
             new_bullet = Bullet(self, "one")
-            self.bullets.add(new_bullet)
+            self.bullets1.add(new_bullet)
         if event.key == pygame.K_RETURN:
             new_bullet = Bullet(self, "two")
-            self.bullets.add(new_bullet)
+            self.bullets2.add(new_bullet)
     
     def _check_keyup_event(self, event):
         # handles key up events
