@@ -2,6 +2,7 @@ import pygame
 import sys
 from settings import Settings
 from tank import Tank
+from bullet import Bullet
 class Tank_duel:
     """main game class with all methods to run it"""
     def __init__(self):
@@ -11,6 +12,7 @@ class Tank_duel:
         pygame.display.set_caption("tank_duels")
         self.tank1 = Tank(self, "one")
         self.tank2 = Tank(self, "two")
+        self.bullets = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
 
 
@@ -29,6 +31,9 @@ class Tank_duel:
         self.display.fill(self.settings.bg_color)
         self.tank1.blitme()
         self.tank2.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.update()
+            bullet.blitme()
         # holds the last drawn image on display
         pygame.display.flip()
 
@@ -54,6 +59,12 @@ class Tank_duel:
             self.tank2.moving_up = True
         if event.key == pygame.K_DOWN:
             self.tank2.moving_down = True 
+        if event.key == pygame.K_SPACE:
+            new_bullet = Bullet(self, "one")
+            self.bullets.add(new_bullet)
+        if event.key == pygame.K_RETURN:
+            new_bullet = Bullet(self, "two")
+            self.bullets.add(new_bullet)
     
     def _check_keyup_event(self, event):
         # handles key up events
