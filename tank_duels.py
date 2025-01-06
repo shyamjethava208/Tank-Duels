@@ -14,6 +14,7 @@ class Tank_duel:
         self.tank2 = Tank(self, "two")
         self.bullets1 = pygame.sprite.Group()
         self.bullets2 = pygame.sprite.Group()
+        self.game_active = True
         self.clock = pygame.time.Clock()
 
 
@@ -21,9 +22,10 @@ class Tank_duel:
         """main loop of the game"""
         while True:
             self._check_events()
-            self.tank1.update()
-            self.tank2.update()
-            self._update_screen()
+            if self.game_active:
+                self.tank1.update()
+                self.tank2.update()
+                self._update_screen()
             self.clock.tick(60)
     
 
@@ -44,8 +46,22 @@ class Tank_duel:
         for bullet in self.bullets2.sprites():
             bullet.update()
             bullet.blitme()
+        self._check_tank2_collision()
+        self._check_tank1_collision()
+    
+    def _check_tank2_collision(self):
+        collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], False, False)
+        if collision:
+            print("tank1 won the game")
+            self.game_active = False
 
-            
+    def _check_tank1_collision(self):
+        collision = pygame.sprite.groupcollide(self.bullets2, [self.tank1], False, False)
+        if collision:
+            print("tank2 won the game")
+            self.game_active = False
+
+
     def _check_events(self):
         # watch for keyboard and mouse events.
         for event in pygame.event.get():
