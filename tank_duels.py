@@ -44,6 +44,8 @@ class Tank_duel:
 
     def _check_keydown_event(self, event):
         # handles key down events
+        if event.key == pygame.K_ESCAPE:
+            sys.exit()
         if event.key == pygame.K_w:
             self.tank1.moving_up = True
         if event.key == pygame.K_s:
