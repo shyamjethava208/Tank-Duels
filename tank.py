@@ -1,6 +1,7 @@
 import pygame
 from settings import Settings
 class Tank:
+    """A class to manage tank"""
     def __init__(self, game, player):
         self.screen = game.display
         self.settings = Settings()
@@ -13,22 +14,27 @@ class Tank:
         self.moving_down = False
     
     def blitme(self):
+        # draw tank on screen
         self.screen.blit(self.image, self.rect)
 
     def update(self):
+        # updates the movements of the tank
         if self.moving_up:
             if self.rect.y > 30:
                 self.rect.y -= 10
         elif self.moving_down:
             if self.rect.bottom < self.screen_rect.bottom - 30:
                 self.rect.y += 10
+                
     def set_location(self, player):
+        # sets the tank position initially 
         if player == "one":
             self.rect.midleft = self.screen_rect.midleft
             self.rect.x += 30
         else:
             self.rect.midright = self.screen_rect.midright
             self.rect.x = self.settings.screen_width - 100
+
     def load_tank_image(self, player):
         if player == "one":
             return pygame.image.load('Tank-Duel/images/tankbody.bmp')

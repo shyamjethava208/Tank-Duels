@@ -25,6 +25,7 @@ class Tank_duel:
     
 
     def _update_screen(self):
+        # draws everything on screen
         self.display.fill(self.settings.bg_color)
         self.tank1.blitme()
         self.tank2.blitme()
@@ -42,6 +43,7 @@ class Tank_duel:
                     self._check_keyup_event(event)
 
     def _check_keydown_event(self, event):
+        # handles key down events
         if event.key == pygame.K_w:
             self.tank1.moving_up = True
         if event.key == pygame.K_s:
@@ -52,6 +54,7 @@ class Tank_duel:
             self.tank2.moving_down = True 
     
     def _check_keyup_event(self, event):
+        # handles key up events
         if event.key == pygame.K_w:
             self.tank1.moving_up = False
         if event.key == pygame.K_s:
