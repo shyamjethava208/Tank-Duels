@@ -6,12 +6,18 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = game.display
         self.settings = game.settings
-        self.original_image = pygame.image.load('Tank-Duel/images/Bullet.bmp')
+        self.original_image = self.load_image(player)
         self.image = pygame.transform.scale(self.original_image, (30, 5))
         self.rect = self.image.get_rect()
         self.fire(player, game)
         self.player = player
     
+    def load_image(self, player):
+        if player == "one":
+            return pygame.image.load('Tank-Duel/images/Bullet.bmp')
+        else:
+            return pygame.image.load('Tank-Duel/images/Bullet2.bmp')
+
     def fire(self, player, game):
         if player == "one":
             print("called fire")
