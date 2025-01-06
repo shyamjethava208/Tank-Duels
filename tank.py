@@ -10,12 +10,17 @@ class Tank:
         self.image = pygame.transform.scale(self.original_image, (70,70))
         self.rect = self.image.get_rect()
         self.set_location(player)
+        self.head_original_image = pygame.image.load('Tank-Duel/images/tankhead.bmp')
+        self.head_image = pygame.transform.scale(self.head_original_image, (70,70))
+        self.head_rect = self.head_image.get_rect()
+        self.head_rect.center = self.rect.center    
         self.moving_up = False
         self.moving_down = False
     
     def blitme(self):
         # draw tank on screen
         self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.head_image, self.head_rect)
 
     def update(self):
         # updates the movements of the tank
@@ -25,7 +30,7 @@ class Tank:
         elif self.moving_down:
             if self.rect.bottom < self.screen_rect.bottom - 30:
                 self.rect.y += 10
-                
+
     def set_location(self, player):
         # sets the tank position initially 
         if player == "one":
