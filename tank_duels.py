@@ -42,15 +42,22 @@ class Tank_duel:
 
 
     def _update_bullets(self):
+        self._check_bullets_collision()
+        self._check_tank2_collision()
+        self._check_tank1_collision()
+        self._draw_bullets()
+
+    def _draw_bullets(self):
         for bullet in self.bullets1.sprites():
             bullet.update()
             bullet.blitme()
         for bullet in self.bullets2.sprites():
             bullet.update()
             bullet.blitme()
-        self._check_tank2_collision()
-        self._check_tank1_collision()
-    
+
+    def _check_bullets_collision(self):
+        collision = pygame.sprite.groupcollide(self.bullets1, self.bullets2,True, True)
+
     def _check_tank2_collision(self):
         collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], False, False)
         if collision:
