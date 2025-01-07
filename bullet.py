@@ -26,9 +26,9 @@ class Bullet(Sprite):
 
     def update(self):
         if self.player == "one":
-            self.rect.x += 10
+            self.rect.x += self.settings.bullet_speed
         else:
-            self.rect.x -= 10
+            self.rect.x -= self.settings.bullet_speed
 
     def blitme(self):
         self.screen.blit(self.image,self.rect)

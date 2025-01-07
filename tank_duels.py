@@ -16,6 +16,8 @@ class Tank_duel:
         self.bullets2 = pygame.sprite.Group()
         self.game_active = True
         self.clock = pygame.time.Clock()
+        self.last_shot_time1 = 0
+        self.last_shot_time2 = 0
 
 
     def run(self):
@@ -85,11 +87,19 @@ class Tank_duel:
         if event.key == pygame.K_DOWN:
             self.tank2.moving_down = True 
         if event.key == pygame.K_SPACE:
-            new_bullet = Bullet(self, "one")
-            self.bullets1.add(new_bullet)
+            if(self._check_can_shoot(self.last_shot_time1)):
+                new_bullet = Bullet(self, "one")
+                self.bullets1.add(new_bullet)
+                self.last_shot_time1 = pygame.time.get_ticks()
         if event.key == pygame.K_RETURN:
-            new_bullet = Bullet(self, "two")
-            self.bullets2.add(new_bullet)
+            if(self._check_can_shoot(self.last_shot_time2)):
+                new_bullet = Bullet(self, "two")
+                self.bullets2.add(new_bullet)
+                self.last_shot_time2 = pygame.time.get_ticks()
+    
+    def _check_can_shoot(self, player_last_shot_time):
+        current_time = pygame.time.get_ticks()
+        return (current_time - player_last_shot_time >= self.settings.bullet_delay)
     
     def _check_keyup_event(self, event):
         # handles key up events

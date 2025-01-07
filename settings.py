@@ -5,5 +5,8 @@ class Settings:
         self.screen_height = 800
         self.bg_color = (0,0,0)
 
-        self.tank_speed = 10
+        self.tank_speed = 5
         self.tank_padding = 30
+
+        self.bullet_speed = 50
+        self.bullet_delay = 800
