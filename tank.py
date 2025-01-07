@@ -16,6 +16,7 @@ class Tank:
         self.head_rect.center = self.rect.center    
         self.moving_up = False
         self.moving_down = False
+
     
     def blitme(self):
         # draw tank on screen
