@@ -56,7 +56,7 @@ class Tank_duel:
             bullet.blitme()
 
     def _check_bullets_collision(self):
-        collision = pygame.sprite.groupcollide(self.bullets1, self.bullets2,True, True)
+        pygame.sprite.groupcollide(self.bullets1, self.bullets2,True, True)
 
     def _check_tank2_collision(self):
         collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], False, False)
@@ -103,6 +103,13 @@ class Tank_duel:
                 new_bullet = Bullet(self, "two")
                 self.bullets2.add(new_bullet)
                 self.last_shot_time2 = pygame.time.get_ticks()
+        if event.key == pygame.K_0:
+            self.tank1.set_location()
+            self.tank2.set_location()
+            self.bullets1.empty()
+            self.bullets2.empty()
+            self.game_active = True
+
     
     def _check_can_shoot(self, player_last_shot_time):
         current_time = pygame.time.get_ticks()
