@@ -43,12 +43,12 @@ class Tank:
 
     def load_tank_head_image(self):
         if self.player == "one":
-            return pygame.image.load('Tank-Duel/images/tankhead.bmp')
+            return pygame.image.load('images/tankhead.bmp')
         else:
-            return pygame.image.load('Tank-Duel/images/tankhead2.bmp')
+            return pygame.image.load('images/tankhead2.bmp')
     
     def load_tank_image(self):
         if self.player == "one":
-            return pygame.image.load('Tank-Duel/images/tankbody.bmp')
+            return pygame.image.load('images/tankbody.bmp')
         else:
-            return pygame.image.load('Tank-Duel/images/tankbody2.bmp')
+            return pygame.image.load('images/tankbody2.bmp')

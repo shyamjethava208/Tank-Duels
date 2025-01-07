@@ -14,9 +14,9 @@ class Bullet(Sprite):
     
     def load_image(self):
         if self.player == "one":
-            return pygame.image.load('Tank-Duel/images/Bullet.bmp')
+            return pygame.image.load('images/Bullet.bmp')
         else:
-            return pygame.image.load('Tank-Duel/images/Bullet2.bmp')
+            return pygame.image.load('images/Bullet2.bmp')
 
     def fire(self, game):
         if self.player == "one":
