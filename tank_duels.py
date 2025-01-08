@@ -4,6 +4,7 @@ from settings import Settings
 from tank import Tank
 from bullet import Bullet
 from wall import Wall
+from button import Button
 class Tank_duel:
     """main game class with all methods to run it"""
     def __init__(self):
@@ -20,11 +21,13 @@ class Tank_duel:
         self.last_shot_time1 = 0
         self.last_shot_time2 = 0
         self.wall = Wall(self)
-
+        self.play_button = Button(self, "Play")
 
     def run(self):
         """main loop of the game"""
         while True:
+            # self.play_button.draw_button()
+            # pygame.display.flip()
             self._check_events()
             if self.game_active:
                 self.tank1.update()

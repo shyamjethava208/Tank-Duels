@@ -19,6 +19,7 @@ class Tank:
         self.moving_down = False
         self.life = 3
 
+
     
     def blitme(self):
         # draw tank on screen
