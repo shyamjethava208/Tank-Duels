@@ -24,7 +24,6 @@ class Tank:
         self.screen.blit(self.head_image, self.head_rect)
 
     def update(self):
-        # updates the movements of the tank
         if self.moving_up:
             if self.rect.y > self.settings.tank_padding:
                 self.rect.y -= self.settings.tank_speed

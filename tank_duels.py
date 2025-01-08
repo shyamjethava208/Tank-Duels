@@ -3,6 +3,7 @@ import sys
 from settings import Settings
 from tank import Tank
 from bullet import Bullet
+from wall import Wall
 class Tank_duel:
     """main game class with all methods to run it"""
     def __init__(self):
@@ -18,6 +19,7 @@ class Tank_duel:
         self.clock = pygame.time.Clock()
         self.last_shot_time1 = 0
         self.last_shot_time2 = 0
+        self.wall = Wall(self)
 
 
     def run(self):
@@ -36,7 +38,9 @@ class Tank_duel:
         self.display.fill(self.settings.bg_color)
         self.tank1.blitme()
         self.tank2.blitme()
+        # self.wall.blitme()
         self._update_bullets()
+    
         # holds the last drawn image on display
         pygame.display.flip()
 
@@ -59,12 +63,14 @@ class Tank_duel:
         pygame.sprite.groupcollide(self.bullets1, self.bullets2,True, True)
 
     def _check_tank2_collision(self):
+        # fix this later
         collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], False, False)
         if collision:
             print("tank1 won the game")
             self.game_active = False
 
     def _check_tank1_collision(self):
+        # fix this later
         collision = pygame.sprite.groupcollide(self.bullets2, [self.tank1], False, False)
         if collision:
             print("tank2 won the game")
@@ -82,7 +88,6 @@ class Tank_duel:
                     self._check_keyup_event(event)
 
     def _check_keydown_event(self, event):
-        # handles key down events
         if event.key == pygame.K_ESCAPE:
             sys.exit()
         if event.key == pygame.K_w:
@@ -94,16 +99,19 @@ class Tank_duel:
         if event.key == pygame.K_DOWN:
             self.tank2.moving_down = True 
         if event.key == pygame.K_SPACE:
+            # refactor it later
             if(self._check_can_shoot(self.last_shot_time1)):
                 new_bullet = Bullet(self, "one")
                 self.bullets1.add(new_bullet)
                 self.last_shot_time1 = pygame.time.get_ticks()
         if event.key == pygame.K_RETURN:
+            # refactor it later
             if(self._check_can_shoot(self.last_shot_time2)):
                 new_bullet = Bullet(self, "two")
                 self.bullets2.add(new_bullet)
                 self.last_shot_time2 = pygame.time.get_ticks()
         if event.key == pygame.K_0:
+            # refactor it later
             self.tank1.set_location()
             self.tank2.set_location()
             self.bullets1.empty()
@@ -116,7 +124,6 @@ class Tank_duel:
         return (current_time - player_last_shot_time >= self.settings.bullet_delay)
     
     def _check_keyup_event(self, event):
-        # handles key up events
         if event.key == pygame.K_w:
             self.tank1.moving_up = False
         if event.key == pygame.K_s:
