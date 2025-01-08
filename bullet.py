@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 class Bullet(Sprite):
+    """A class to handle bullet"""
     def __init__(self, game, player):
         super().__init__()
         self.screen = game.display
@@ -31,4 +32,5 @@ class Bullet(Sprite):
             self.rect.x -= self.settings.bullet_speed
 
     def blitme(self):
+        # draw bullets
         self.screen.blit(self.image,self.rect)

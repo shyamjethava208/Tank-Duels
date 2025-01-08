@@ -1,5 +1,6 @@
 import pygame
 class Wall:
+    """A class that manages walls"""
     def __init__(self, game):
         self.screen = game.display
         self.settings = game.settings
@@ -10,4 +11,5 @@ class Wall:
         self.rect.x += 250
         self.rect.y += 250
     def blitme(self):
+        # draw wall
         self.screen.blit(self.image, self.rect)
