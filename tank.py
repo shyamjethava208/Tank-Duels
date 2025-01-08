@@ -2,10 +2,11 @@ import pygame
 class Tank:
     """A class to manage tank"""
     def __init__(self, game, player):
+        self.game = game
         self.screen = game.display
         self.settings = game.settings
-        self.screen_rect = game.display.get_rect()
         self.player = player
+        self.screen_rect = game.display.get_rect()
         self.original_image = self.load_tank_image()
         self.image = pygame.transform.scale(self.original_image, (70,70))
         self.rect = self.image.get_rect()
@@ -16,12 +17,14 @@ class Tank:
         self.head_rect.center = self.rect.center    
         self.moving_up = False
         self.moving_down = False
+        self.life = 3
 
     
     def blitme(self):
         # draw tank on screen
         self.screen.blit(self.image, self.rect)
-        self.screen.blit(self.head_image, self.head_rect)
+        if self.game.game_active:
+            self.screen.blit(self.head_image, self.head_rect)
 
     def update(self):
         if self.moving_up:

@@ -11,11 +11,11 @@ class Tank_duel:
         self.settings = Settings()
         self.display = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("tank_duels")
+        self.game_active = True
         self.tank1 = Tank(self, "one")
         self.tank2 = Tank(self, "two")
         self.bullets1 = pygame.sprite.Group()
         self.bullets2 = pygame.sprite.Group()
-        self.game_active = True
         self.clock = pygame.time.Clock()
         self.last_shot_time1 = 0
         self.last_shot_time2 = 0
@@ -64,17 +64,31 @@ class Tank_duel:
 
     def _check_tank2_collision(self):
         # fix this later
-        collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], False, False)
+        collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], True, False)
         if collision:
-            print("tank1 won the game")
-            self.game_active = False
+            # print(collision)
+            if self.tank2.life == 1:
+                print(self.tank2.life)
+                print("tank1 won the game")
+                self.game_active = False
+                self.tank2.blitme()
+                self.tank2.life -= 1
+            else:
+                self.tank2.life -= 1
 
     def _check_tank1_collision(self):
         # fix this later
-        collision = pygame.sprite.groupcollide(self.bullets2, [self.tank1], False, False)
+        collision = pygame.sprite.groupcollide(self.bullets2, [self.tank1], True, False)
         if collision:
-            print("tank2 won the game")
-            self.game_active = False
+            # print(collision)
+            if self.tank1.life == 1:
+                print(self.tank1.life)
+                print("tank2 won the game")
+                self.game_active = False
+                self.tank1.blitme()
+                self.tank1.life -= 1
+            else:
+                self.tank1.life -= 1
 
 
     def _check_events(self):
@@ -114,6 +128,8 @@ class Tank_duel:
             # refactor it later
             self.tank1.set_location()
             self.tank2.set_location()
+            self.tank1.life = 3
+            self.tank2.life = 3
             self.bullets1.empty()
             self.bullets2.empty()
             self.game_active = True

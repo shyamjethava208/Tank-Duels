@@ -8,5 +8,6 @@ class Settings:
         self.tank_speed = 5
         self.tank_padding = 30
 
+
         self.bullet_speed = 10
         self.bullet_delay = 800
