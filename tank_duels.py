@@ -40,10 +40,11 @@ class Tank_duel:
     def _update_screen(self):
         # draws everything on screen
         self.display.fill(self.settings.bg_color)
-        self.tank1.blitme()
-        self.tank2.blitme()
+        if self.game_active:
+            self.tank1.blitme()
+            self.tank2.blitme()
+            self._update_bullets()
         # self.wall.blitme()
-        self._update_bullets()
         if not self.game_active:
             self.play_button.draw_button()
         if self.game_end:
