@@ -128,6 +128,10 @@ class Tank_duel:
             self.tank2.set_location()
             self.bullets1.empty()
             self.bullets2.empty()
+            self.tank1.life = 1
+            self.tank2.life = 1
+            self.last_shot_time1 = pygame.time.get_ticks()
+            self.last_shot_time2 = pygame.time.get_ticks()
             self.game_active = True
             self.game_end = False
 
