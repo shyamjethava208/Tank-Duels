@@ -22,6 +22,8 @@ class Tank_duel:
         self.last_shot_time2 = 0
         self.wall = Wall(self)
         self.play_button = Button(self, "Play")
+        self.game_end = False
+        self.game_end_image = None
 
     def run(self):
         """main loop of the game"""
@@ -44,6 +46,8 @@ class Tank_duel:
         self._update_bullets()
         if not self.game_active:
             self.play_button.draw_button()
+        if self.game_end:
+            self.game_end_image.draw_button()
         # holds the last drawn image on display
         pygame.display.flip()
 
@@ -71,9 +75,13 @@ class Tank_duel:
         collision = pygame.sprite.groupcollide(self.bullets1, [self.tank2], True, False)
         if collision:
             # print(collision)
+            print(self.tank2.life)
             if self.tank2.life == 1:
-                print(self.tank2.life)
-                print("tank1 won the game")
+                self.game_end_image = Button(self, "")
+                self.game_end = True
+                self.game_end_image.rect.y -= 200
+                self.game_end_image.button_color = (0, 0, 0)
+                self.game_end_image._prep_msg("Player 1 won the game")
                 self.game_active = False
                 pygame.mouse.set_visible(True)
                 self.tank2.blitme()
@@ -85,10 +93,12 @@ class Tank_duel:
         # fix this later
         collision = pygame.sprite.groupcollide(self.bullets2, [self.tank1], True, False)
         if collision:
-            # print(collision)
             if self.tank1.life == 1:
-                print(self.tank1.life)
-                print("tank2 won the game")
+                self.game_end_image = Button(self, "")
+                self.game_end = True
+                self.game_end_image.rect.y -= 200
+                self.game_end_image.button_color = (0, 0, 0)
+                self.game_end_image._prep_msg("Player 2 won the game")
                 self.game_active = False
                 pygame.mouse.set_visible(True)
                 self.tank1.blitme()
@@ -116,36 +126,36 @@ class Tank_duel:
             pygame.mouse.set_visible(False)
             self.tank1.set_location()
             self.tank2.set_location()
-            self.tank1.life = 3
-            self.tank2.life = 3
             self.bullets1.empty()
             self.bullets2.empty()
             self.game_active = True
+            self.game_end = False
 
 
     def _check_keydown_event(self, event):
         if event.key == pygame.K_ESCAPE:
             sys.exit()
-        if event.key == pygame.K_w:
-            self.tank1.moving_up = True
-        if event.key == pygame.K_s:
-            self.tank1.moving_down = True
-        if event.key == pygame.K_UP:
-            self.tank2.moving_up = True
-        if event.key == pygame.K_DOWN:
-            self.tank2.moving_down = True 
-        if event.key == pygame.K_SPACE:
-            # refactor it later
-            if(self._check_can_shoot(self.last_shot_time1)):
-                new_bullet = Bullet(self, "one")
-                self.bullets1.add(new_bullet)
-                self.last_shot_time1 = pygame.time.get_ticks()
-        if event.key == pygame.K_RETURN:
-            # refactor it later
-            if(self._check_can_shoot(self.last_shot_time2)):
-                new_bullet = Bullet(self, "two")
-                self.bullets2.add(new_bullet)
-                self.last_shot_time2 = pygame.time.get_ticks()
+        if self.game_active:
+            if event.key == pygame.K_w:
+                self.tank1.moving_up = True
+            if event.key == pygame.K_s:
+                self.tank1.moving_down = True
+            if event.key == pygame.K_UP:
+                self.tank2.moving_up = True
+            if event.key == pygame.K_DOWN:
+                self.tank2.moving_down = True 
+            if event.key == pygame.K_SPACE:
+                # refactor it later
+                if(self._check_can_shoot(self.last_shot_time1)):
+                    new_bullet = Bullet(self, "one")
+                    self.bullets1.add(new_bullet)
+                    self.last_shot_time1 = pygame.time.get_ticks()
+            if event.key == pygame.K_RETURN:
+                # refactor it later
+                if(self._check_can_shoot(self.last_shot_time2)):
+                    new_bullet = Bullet(self, "two")
+                    self.bullets2.add(new_bullet)
+                    self.last_shot_time2 = pygame.time.get_ticks()
         if event.key == pygame.K_0:
             # refactor it later
             self.tank1.set_location()
