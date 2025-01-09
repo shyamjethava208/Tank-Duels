@@ -75,6 +75,7 @@ class Tank_duel:
                 print(self.tank2.life)
                 print("tank1 won the game")
                 self.game_active = False
+                pygame.mouse.set_visible(True)
                 self.tank2.blitme()
                 self.tank2.life -= 1
             else:
@@ -89,6 +90,7 @@ class Tank_duel:
                 print(self.tank1.life)
                 print("tank2 won the game")
                 self.game_active = False
+                pygame.mouse.set_visible(True)
                 self.tank1.blitme()
                 self.tank1.life -= 1
             else:
@@ -111,7 +113,13 @@ class Tank_duel:
     def _check_play_button(self, mouse_pos):
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
-            # pygame.mouse.set_visible(False)
+            pygame.mouse.set_visible(False)
+            self.tank1.set_location()
+            self.tank2.set_location()
+            self.tank1.life = 3
+            self.tank2.life = 3
+            self.bullets1.empty()
+            self.bullets2.empty()
             self.game_active = True
 
 
