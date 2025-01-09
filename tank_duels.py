@@ -12,7 +12,7 @@ class Tank_duel:
         self.settings = Settings()
         self.display = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("tank_duels")
-        self.game_active = True
+        self.game_active = False
         self.tank1 = Tank(self, "one")
         self.tank2 = Tank(self, "two")
         self.bullets1 = pygame.sprite.Group()
@@ -26,13 +26,12 @@ class Tank_duel:
     def run(self):
         """main loop of the game"""
         while True:
-            # self.play_button.draw_button()
-            # pygame.display.flip()
             self._check_events()
             if self.game_active:
                 self.tank1.update()
                 self.tank2.update()
-                self._update_screen()
+                self._update_bullets()
+            self._update_screen()
             self.clock.tick(60)
     
 
@@ -43,12 +42,14 @@ class Tank_duel:
         self.tank2.blitme()
         # self.wall.blitme()
         self._update_bullets()
-    
+        if not self.game_active:
+            self.play_button.draw_button()
         # holds the last drawn image on display
         pygame.display.flip()
 
 
     def _update_bullets(self):
+        
         self._check_bullets_collision()
         self._check_tank2_collision()
         self._check_tank1_collision()
@@ -103,6 +104,16 @@ class Tank_duel:
                     self._check_keydown_event(event)
                 elif event.type == pygame.KEYUP:
                     self._check_keyup_event(event)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.game_active:
+            # pygame.mouse.set_visible(False)
+            self.game_active = True
+
 
     def _check_keydown_event(self, event):
         if event.key == pygame.K_ESCAPE:

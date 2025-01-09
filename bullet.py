@@ -12,6 +12,7 @@ class Bullet(Sprite):
         self.image = pygame.transform.scale(self.original_image, (30, 5))
         self.rect = self.image.get_rect()
         self.fire(game)
+        print(self.rect)
     
     def load_image(self):
         if self.player == "one":
